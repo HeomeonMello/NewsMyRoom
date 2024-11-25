@@ -1,1 +1,48 @@
-\
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    container_name: newsmyroom_backend
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGO_URI=${MONGO_URI}
+      - NODE_ENV=production
+    env_file:
+      - ./backend/.env
+
+    depends_on:
+      - mongo
+
+    volumes:
+      - ./backend:/app
+    networks:
+      - newsmyroom_network
+
+  frontend:
+    build: ./frontend
+    container_name: newsmyroom_frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+    networks:
+      - newsmyroom_network
+
+  mongo:
+    image: mongo:6.0
+    container_name: newsmyroom_mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongo/data:/data/db
+    networks:
+      - newsmyroom_network
+
+networks:
+  newsmyroom_network:
+    driver: bridge
