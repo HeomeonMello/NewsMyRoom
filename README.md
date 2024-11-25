@@ -43,3 +43,8 @@
 └── workflows/
 └── ci.yml                    # CI/CD 파이프라인 정의 파일 (예: 테스트, 빌드, 배포)
 ```
+## 사전 준비
+
+- [Docker](https://www.docker.com/get-started)
+- [Docker Compose](https://docs.docker.com/compose/install/)
+- [Node.js](https://nodejs.org/) (로컬 개발 시 필요)
