@@ -18,5 +18,5 @@ backend/dist/
 frontend/dist/
 frontend/build/
 
-# Docker
+# Docke
 docker-compose.override.yml
