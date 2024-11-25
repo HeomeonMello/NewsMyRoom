@@ -32,7 +32,7 @@ RUN npm install --only=production
 ENV NODE_ENV=production
 
 # 포트 노출
-EXPOSE 3000
+EXPOSE 5000
 
 # 애플리케이션 실행
 CMD ["node", "dist/server.js"]

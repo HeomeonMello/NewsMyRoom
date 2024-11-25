@@ -2,26 +2,28 @@ version: '3.8'
 
 services:
   backend:
-    build: ./backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     container_name: newsmyroom_backend
     ports:
-      - "3000:3000"
+      - "5000:5000"  # Express 서버 포트
     environment:
-      - MONGO_URI=${MONGO_URI}
+      - MONGO_URI=mongodb://mongo:27017/newsmyroom
       - NODE_ENV=production
-    env_file:
-      - ./backend/.env
-
+      - JWT_SECRET=${JWT_SECRET}
     depends_on:
       - mongo
-
     volumes:
       - ./backend:/app
+      - /app/node_modules
     networks:
       - newsmyroom_network
 
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     container_name: newsmyroom_frontend
     ports:
       - "80:80"
@@ -29,6 +31,7 @@ services:
       - backend
     volumes:
       - ./frontend:/app
+      - /app/node_modules
     networks:
       - newsmyroom_network
 
