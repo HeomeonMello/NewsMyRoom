@@ -1,3 +1,38 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* 전역 스타일 */
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: #f9fafb;
+}
+
+a {
+  color: #3b82f6;
+  text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #1f2937;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* 사용자 정의 스타일 */
+.btn {
+  @apply px-4 py-2 bg-blue-500 text-white rounded-lg shadow-md;
+}
+
+.btn:hover {
+  @apply bg-blue-600;
+}
+
+.card {
+  @apply p-4 bg-white shadow-lg rounded-lg border border-gray-200;
+}
