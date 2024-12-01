@@ -1,6 +1,7 @@
 // src/controllers/apiController.ts
 import { Request, Response } from 'express';
 import { getNewsSearchResult, getBreakingHeadlines, getTrendingKeywords } from '../utils/api';
+import Article from "../models/Article";
 
 export const scrapeAndStore = async (req: Request, res: Response) => {
   try {

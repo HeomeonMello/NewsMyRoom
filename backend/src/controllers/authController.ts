@@ -2,7 +2,7 @@
 import { Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import User, { IUser } from '../models/User.ts';
+import User, { IUser } from '../models/User';
 
 export const register = async (req: Request, res: Response) => {
   const { username, password, userid, interests } = req.body;

@@ -97,7 +97,7 @@ export const fetchHeadlines = async (
   return [];
 };
 
-const getImageUrl = (imageTag: cheerio.Cheerio) => {
+const getImageUrl = (imageTag: cheerio.Cheerio<any>) => {
   if (!imageTag) {
     return "No image found";
   }

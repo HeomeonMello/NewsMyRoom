@@ -18,6 +18,8 @@ module.exports = {
     },
     plugins: ['react'],
     rules: {
-        // 필요한 규칙 추가 또는 수정
+          'react/react-in-jsx-scope': 'off',
+          'no-unused-vars': 'warn',
+          'react/prop-types': 'off',
     },
 };
