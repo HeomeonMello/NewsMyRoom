@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인 - NewsMyRoom</title>
+    <link rel="stylesheet" href="css/stylesheet.css">
+    <link rel="stylesheet" href="css/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link href="favicon.ico" type="image/x-icon" rel="icon" />
+    <link href="favicon.ico" type="image/x-icon" rel="shortcut icon" />
+    <link rel="stylesheet" type="text/css" href="css/font-awesome-4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div class="wrapper-relative">
+        <header>
+            <div class="container center">
+               <h1 class="header-logo-public">
+                <a href="index.html" title="NewsMyRoom" rel="home" STYLE="font-family: 'Audiowide', serif; font-size: 26pt">NewsMyRoom</a>
+            </h1>
+            </div>
+        </header>
+
+        <section class="form-container">
+            <div class="container">
+                <h2>로그인</h2>
+                <form action="/login" method="POST">
+                    <div class="form-group">
+                        <label for="username">아이디</label>
+                        <input type="text" id="username" name="username" placeholder="아이디를 입력하세요" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">비밀번호</label>
+                        <input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">로그인</button>
+                    <p class="text-muted">계정이 없으신가요? <a href="register.html">회원가입</a></p>
+                </form>
+            </div>
+        </section>
+
+        <footer>
+            <div class="container">
+                <p>&copy; 2024 NewsMyRoom. All Rights Reserved.</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
