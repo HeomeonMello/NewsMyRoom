@@ -22,13 +22,24 @@
     <header>
         <div class="container center">
             <h1 class="header-logo-public">
-                <a href="index.html" title="NewsMyRoom" rel="home" STYLE="font-family: 'Audiowide', serif; font-size: 26pt">NewsMyRoom</a>
+                <a href="index.html" title="NewsMyRoom" rel="home" style="font-family: 'Audiowide', serif; font-size: 26pt">NewsMyRoom</a>
             </h1>
             <div class="header-nav-wrapper dropdown">
                 <a class="menu-icon dropdown-toggle dropdown-mobile" href="#"></a>
-                <ul class="header-nav">
-                    <!-- Log In 추가 -->
-                    <li class="right with-margin quiet"><a href="login.html" class="muted" id="nav_login">Log In</a></li>
+                <ul class="header-nav" id="nav_items">
+                    <!-- 로그인 상태에 따라 이 부분 변경 -->
+                    <!-- 기본 상태(비로그인) -->
+                    <li class="right with-margin quiet" id="nav_login_item"><a href="login.html" class="muted" id="nav_login">Log In</a></li>
+
+
+                    <li class="right with-margin" id="nav_user_item" style="display:none;">
+                        <a href="#" class="muted" id="nav_user_info">Hello, USERNAME</a>
+                    </li>
+                    <li class="right with-margin" id="nav_logout_item" style="display:none;">
+                        <a href="#" class="muted" id="nav_logout">Log Out</a>
+                    </li>
+                    
+
                     <li class="link"><a href="trends.html">Trending</a></li>
                     <li class="link"><a href="search.html" id="nav_search">Search</a></li>
                     <li class="link"><a href="preferences.html" id="nav_preferences">Preferences</a></li>
@@ -50,7 +61,6 @@
                             <li class="span2">
                                 <a href="#trending">Trending</a>
                             </li>
-                            <!-- Personalization 유지 -->
                             <li class="span2">
                                 <a href="#personalization">Personalization</a>
                             </li>
@@ -110,7 +120,7 @@
             </div>
             <div class="row">
                 <div class="span12 center-text">
-                    <p><B>Stay ahead with real-time updates on trending news stories across the globe. See what others are reading and join the conversation.</B></p>
+                    <p><b>Stay ahead with real-time updates on trending news stories across the globe. See what others are reading and join the conversation.</b></p>
                 </div>
             </div>
         </div>
@@ -153,5 +163,60 @@
         </div>
     </footer>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 로그인 상태 체크
+        const token = localStorage.getItem('token');
+        const userJson = localStorage.getItem('user');
+
+        const navLoginItem = document.getElementById('nav_login_item');
+        const navItems = document.getElementById('nav_items');
+
+        if (token && userJson) {
+            // 로그인 상태
+            const user = JSON.parse(userJson);
+            // 기존 로그인 메뉴 제거
+            if (navLoginItem) {
+                navLoginItem.remove();
+            }
+
+            // 사용자 정보 표시
+            const userItem = document.createElement('li');
+            userItem.className = 'right with-margin';
+            userItem.id = 'nav_user_item';
+            const userLink = document.createElement('a');
+            userLink.href = '#';
+            userLink.className = 'muted';
+            userLink.id = 'nav_user_info';
+            userLink.textContent = 'Hello, ' + user.username;
+            userItem.appendChild(userLink);
+            navItems.appendChild(userItem);
+
+            // 로그아웃 항목
+            const logoutItem = document.createElement('li');
+            logoutItem.className = 'right with-margin';
+            logoutItem.id = 'nav_logout_item';
+            const logoutLink = document.createElement('a');
+            logoutLink.href = '#';
+            logoutLink.className = 'muted';
+            logoutLink.id = 'nav_logout';
+            logoutLink.textContent = 'Log Out';
+            logoutLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                // 로그아웃 시 토큰과 사용자 정보 제거
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
+                // 페이지 새로고침
+                window.location.reload();
+            });
+            logoutItem.appendChild(logoutLink);
+            navItems.appendChild(logoutItem);
+        } else {
+            // 비로그인 상태 -> 기본 Log In 표시 유지
+        }
+    });
+</script>
+
 </body>
 </html>

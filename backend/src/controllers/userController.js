@@ -32,7 +32,7 @@ exports.registerUser = async (req, res, next) => {
         next(error);
     }
 };
-
+// 백엔드 로그인 컨트롤러 수정
 exports.loginUser = async (req, res, next) => {
     try {
         const { email, password } = req.body;
@@ -53,8 +53,15 @@ exports.loginUser = async (req, res, next) => {
             { expiresIn: '1h' }
         );
 
+        // HTTP-only 쿠키에 토큰 설정
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production', // HTTPS 사용 시에만 설정
+            sameSite: 'Strict', // CSRF 보호 강화
+            maxAge: 3600000, // 1시간
+        });
+
         res.json({
-            token,
             user: {
                 id: user._id,
                 username: user.username,
