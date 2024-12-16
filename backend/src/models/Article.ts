@@ -2,22 +2,19 @@
 import mongoose, { Document, Schema } from 'mongoose';
 
 export interface IArticle extends Document {
-  title: string;
-  link: string;
-  image_url: string;
-  summary: string;
-  createdAt: Date;
-  updatedAt: Date;
+    title: string;
+    link: string;
+    section: string;
+    publishedAt: Date;
+    // 필요한 다른 필드들을 추가하세요.
 }
 
-const ArticleSchema: Schema = new Schema<IArticle>(
-  {
+const ArticleSchema: Schema = new Schema({
     title: { type: String, required: true },
     link: { type: String, required: true, unique: true },
-    image_url: { type: String, required: true },
-    summary: { type: String, required: true },
-  },
-  { timestamps: true }
-);
+    section: { type: String, required: true },
+    publishedAt: { type: Date, default: Date.now },
+    // 필요한 다른 필드들을 스키마에 추가하세요.
+});
 
 export default mongoose.model<IArticle>('Article', ArticleSchema);

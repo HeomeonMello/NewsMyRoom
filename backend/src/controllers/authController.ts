@@ -2,8 +2,9 @@
 import { Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import User, { IUser } from '../models/User.ts';
+import User, { IUser } from '../models/User';
 
+// 회원가입 컨트롤러
 export const register = async (req: Request, res: Response) => {
   const { username, password, userid, interests } = req.body;
 
@@ -35,10 +36,12 @@ export const register = async (req: Request, res: Response) => {
 
     res.status(201).json({ message: '사용자가 성공적으로 등록되었습니다.' });
   } catch (error) {
+    console.error('회원가입 중 서버 오류:', error);
     res.status(500).json({ message: '서버 오류', error });
   }
 };
 
+// 로그인 컨트롤러
 export const login = async (req: Request, res: Response) => {
   const { username, password } = req.body;
 
@@ -59,12 +62,15 @@ export const login = async (req: Request, res: Response) => {
       return res.status(401).json({ message: '잘못된 사용자 이름 또는 비밀번호입니다.' });
     }
 
-    const token = jwt.sign({ userid: user.userid }, process.env.JWT_SECRET || 'secret', {
-      expiresIn: '1h'
-    });
+    const token = jwt.sign(
+        { userid: user.userid },
+        process.env.JWT_SECRET || 'secret', // 환경 변수 사용
+        { expiresIn: '1h' }
+    );
 
     res.status(200).json({ message: '로그인 성공', access_token: token });
   } catch (error) {
+    console.error('로그인 중 서버 오류:', error);
     res.status(500).json({ message: '서버 오류', error });
   }
 };

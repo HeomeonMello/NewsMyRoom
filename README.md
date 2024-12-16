@@ -40,7 +40,7 @@ newsmyroom/
 │
 ├── frontend/                         # 프론트엔드 애플리케이션 관련 코드와 설정
 │   ├── index.html                    # 메인 HTML 파일
-│   ├── about.html                    # About 페이지
+│   ├── login.html                    # login 페이지
 │   ├── trends.html                   # Trending 페이지
 │   ├── search.html                   # Search 페이지
 │   ├── preferences.html              # Preferences 페이지
@@ -62,7 +62,7 @@ newsmyroom/
 │   ├── images/                        # 이미지 파일들
 │   │   ├── network-visual.jpg
 │   │   ├── spinningglobe.gif
-│   │   └── gdelt-events-nasa-night-lights.jpg
+│   │   └── ...
 │   │
 │   └── favicon.ico                    # 파비콘
 │
