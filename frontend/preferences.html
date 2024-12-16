@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>추천 뉴스 - NewsMyRoom</title>
+  <link rel="stylesheet" href="css/stylesheet.css">
+  <link rel="stylesheet" href="css/font-awesome-4.7.0/css/font-awesome.min.css">
+  <link href="favicon.ico" type="image/x-icon" rel="icon" />
+  <link href="favicon.ico" type="image/x-icon" rel="shortcut icon" />
+  <link rel="stylesheet" type="text/css" href="css/googlefonts-audiowide/googlefont-audiowide.css">
+
+  <style>
+    .news-container {
+      display: flex;
+      flex-direction: column;
+      margin: 20px;
+    }
+    .news-item {
+      border-bottom: 1px solid #ccc;
+      padding: 15px;
+    }
+    .news-item h3 {
+      font-size: 20px;
+      color: #333;
+    }
+    .news-item p {
+      color: #555;
+      font-size: 16px;
+    }
+    .news-header {
+      text-align: center;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+    <div class="wrapper-relative">
+        <header>
+            <div class="container center">
+                <h1 class="header-logo-public" style="font-family: 'Audiowide', serif; font-size: 26pt;">
+                    <a href="index.html" title="NewsMyRoom" rel="home">NewsMyRoom</a>
+                </h1>
+            </div>
+        </header>
+
+        <div class="container">
+            <h1 class="news-header">오늘의 추천 뉴스</h1>
+
+            <!-- 뉴스 리스트 -->
+            <div class="news-container" id="news-container">
+                <!-- 뉴스 항목들이 여기에 추가됩니다 -->
+            </div>
+            <footer>
+                <p>&copy; 2024 <a href="index.html">NewsMyRoom</a>. All Rights Reserved.</p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        // 예시 뉴스 데이터 (실제 데이터는 API로 받아올 수 있습니다)
+        const recommendedNews = [
+            { title: "AI 기술의 발전", description: "AI가 산업에 미치는 영향에 대해 탐구합니다." },
+            { title: "5G와 기술 혁신", description: "5G 네트워크가 가져올 미래의 기술 혁신에 대해 알아봅니다." },
+            { title: "건강을 위한 습관", description: "건강을 유지하기 위한 간단한 일상 습관을 소개합니다." },
+            { title: "다이어트와 운동의 중요성", description: "다이어트와 운동이 건강에 미치는 긍정적인 영향을 설명합니다." },
+            { title: "2024 올림픽 준비", description: "2024 올림픽을 준비하는 각국의 전략과 준비상황." },
+            { title: "축구 월드컵 2026", description: "2026 축구 월드컵에 대한 예측과 주요 팀 분석." },
+            { title: "최고의 영화 2024", description: "2024년에 기대되는 영화들에 대해 소개합니다." },
+            { title: "음악 산업의 변화", description: "음악 산업의 현재와 미래를 분석해봅니다." }
+        ];
+
+        // 뉴스 항목을 화면에 표시하는 함수
+        function displayRecommendedNews() {
+            const newsContainer = document.getElementById('news-container');
+            recommendedNews.forEach(news => {
+                const newsItem = document.createElement('div');
+                newsItem.classList.add('news-item');
+                newsItem.innerHTML = `<h3>${news.title}</h3><p>${news.description}</p>`;
+                newsContainer.appendChild(newsItem);
+            });
+        }
+
+        // 페이지 로드 시 추천 뉴스 표시
+        displayRecommendedNews();
+    </script>
+</body>
+</html>
