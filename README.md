@@ -1,42 +1,7 @@
 ```
 newsmyroom/
 ├── backend/                          # 백엔드 애플리케이션 관련 코드와 설정
-│   ├── Dockerfile                    # 백엔드 컨테이너 빌드를 위한 Dockerfile
-│   ├── package.json                  # 백엔드 프로젝트 의존성 및 스크립트
-│   ├── package-lock.json             # 의존성 고정 파일
-│   ├── src/                           # 백엔드 소스 코드
-│   │   ├── app.js                     # 애플리케이션 진입점 (Express 서버 설정)
-│   │   ├── config/                    # 환경설정 파일
-│   │   │   ├── default.json           # 기본 설정
-│   │   │   └── production.json        # 프로덕션 설정
-│   │   ├── controllers/               # 비즈니스 로직을 처리하는 컨트롤러
-│   │   │   ├── newsController.js      # 뉴스 관련 컨트롤러
-│   │   │   ├── userController.js      # 사용자 관련 컨트롤러
-│   │   │   └── ...                     # 기타 컨트롤러
-│   │   ├── models/                    # 데이터 모델 (MongoDB 스키마)
-│   │   │   ├── User.js                 # 사용자 모델
-│   │   │   ├── Article.js              # 기사 모델
-│   │   │   └── ...                     # 기타 모델
-│   │   ├── routes/                    # API 라우트 정의
-│   │   │   ├── index.js                # 기본 라우트
-│   │   │   ├── newsRoutes.js           # 뉴스 관련 라우트
-│   │   │   ├── userRoutes.js           # 사용자 관련 라우트
-│   │   │   └── ...                     # 기타 라우트
-│   │   ├── services/                  # 외부 API 연동 및 비즈니스 로직
-│   │   │   ├── gdeltService.js         # GDELT API 연동 로직
-│   │   │   ├── naverService.js         # 네이버 API 연동 로직
-│   │   │   └── ...                     # 기타 서비스
-│   │   ├── views/                     # 서버사이드 렌더링을 사용할 경우 템플릿 파일 (ejs 등)
-│   │   ├── utils/                     # 유틸리티 함수
-│   │   │   ├── logger.js               # 로깅 유틸리티
-│   │   │   ├── responseHandler.js      # 응답 처리 유틸리티
-│   │   │   └── ...                     # 기타 유틸리티
-│   │   └── tests/                     # 백엔드 유닛테스트 및 통합테스트
-│   │       ├── controllers/            # 컨트롤러 테스트
-│   │       ├── models/                 # 모델 테스트
-│   │       ├── routes/                 # 라우트 테스트
-│   │       └── services/               # 서비스 테스트
-│   └── .env                           # 환경 변수 설정 파일 (로컬 개발용)
+|
 │
 ├── frontend/                         # 프론트엔드 애플리케이션 관련 코드와 설정
 │   ├── index.html                    # 메인 HTML 파일
