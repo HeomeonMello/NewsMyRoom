@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>검색 - NewsMyRoom</title>
+    <link rel="stylesheet" href="css/stylesheet.css">
+    <link href="favicon.ico" type="image/x-icon" rel="icon" />
+    <link href="favicon.ico" type="image/x-icon" rel="shortcut icon" />
+    <link rel="stylesheet" href="css/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/googlefonts-audiowide/googlefont-audiowide.css">
+</head>
+<body class="content">
+    <div class="wrapper-relative">
+        <!-- 헤더 -->
+        <header>
+            <div class="container center">
+               <h1 class="header-logo-public">
+                <a href="index.html" title="NewsMyRoom" rel="home" STYLE="font-family: 'Audiowide', serif; font-size: 26pt">NewsMyRoom</a>
+            </h1>
+            </div>
+        </header>
+
+        <!-- 검색 섹션 -->
+        <section class="search-leader" id="search-intro">
+            <div class="container">
+                <div class="row">
+                    <div class="span12 center-text">
+                        <h1>Discover News You Care About</h1>
+                        <p>Search Your News</p>
+                        <form id="searchForm" class="search-form">
+                            <input type="text" id="searchInput" name="query" placeholder="검색어를 입력하세요..." required>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fa fa-search"></i> 검색
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 검색 결과 섹션 -->
+        <section id="search-results">
+            <div class="container">
+                <div class="row">
+                    <div class="span12">
+                        <h2>검색 결과</h2>
+                        <div id="resultsContainer" class="results-container">
+                            <!-- 검색 결과가 여기에 표시됩니다 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 푸터 -->
+        <footer>
+            <div class="container">
+                <p>&copy; 2024 NewsMyRoom. All Rights Reserved.</p>
+            </div>
+        </footer>
+    </div>
+ <script src="js/search.js"></script>
+</body>
+</html>
