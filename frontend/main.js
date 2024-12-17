@@ -90,16 +90,7 @@ function manageOutputTabs(evt, tabName) {
     current_tab = 'tab_geo';
     if(LIVE){ update_query('api', 'geo'); }
   }
-  if(tabName == 'tab_tv') {
-    current_tab = 'tab_tv';
-    $('#doc_results_options').appendTo("#tab_tv");
-    $('#timelinesmoothdiv').show();
-    $('#maxrecordsdiv').hide();
-    $('#sortdiv').hide();
-    $('#analysis_buttons_div').show();
-    if(LIVE){ update_query('api', 'tv'); }
-  }
-  // iframe_zoom(2);
+
 }
 
 

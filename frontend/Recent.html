@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>NewsMyRoom - Trending</title>
+    <meta name="description" content="Stay updated with the latest trending news and topics tailored to your interests.">
+    <meta name="keywords" content="trending news, real-time trends, NewsMyRoom">
+    <meta name="viewport" content="initial-scale=1, user-scalable=no, maximum-scale=1, width=device-width">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/googlefonts-audiowide/googlefont-audiowide.css">
+    <link href="favicon.ico" type="image/x-icon" rel="icon" />
+    <link href="favicon.ico" type="image/x-icon" rel="shortcut icon" />
+
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap JS (의존성: jQuery 먼저 로드) -->
+    <script src="js/bootstrap.js"></script>
+
+    <style>
+        .mainRow { max-height: 75vh; overflow-y: auto; }
+        .topRow { display: flex; flex-direction: column; }
+        .station:nth-of-type(odd) { background: #f5f5f5; }
+        h3, h4 { text-align: center; margin: 15px 5px 5px 5px; }
+        h3 { color: cyan; background-color: #555; font-size: 18px; }
+        h4 { font-size: 14px; }
+        p { margin: 0px 0px 0px 5px; line-height: 90%; font-size: 14px; }
+        .content-icon { margin-bottom: 10px; }
+        .loading { text-align: center; margin-top: 50px; }
+        /* 추가 스타일 */
+        .news-section {
+            margin: 40px 0;
+        }
+        .news-section h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .news-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .news-item {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            width: calc(33.333% - 40px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .news-item h4 {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .news-item p {
+            font-size: 14px;
+            color: #666;
+        }
+        @media (max-width: 768px) {
+            .news-item {
+                width: calc(50% - 40px);
+            }
+        }
+        @media (max-width: 480px) {
+            .news-item {
+                width: 100%;
+            }
+        }
+        .news-list-loading {
+            text-align: center;
+            width: 100%;
+            font-size: 16px;
+            color: #999;
+        }
+    </style>
+</head>
+<body class="content" data-spy="scroll" data-target=".sub-navbar" data-offset="100">
+
+<div class="wrapper-relative">
+    <header>
+        <div class="container center">
+            <h1 class="header-logo-public">
+                <a href="index.html" title="NewsMyRoom" rel="home" style="font-family: 'Audiowide', serif; font-size: 26pt">NewsMyRoom</a>
+            </h1>
+            <div class="header-nav-wrapper dropdown">
+                <a class="menu-icon dropdown-toggle dropdown-mobile" href="#"></a>
+                <ul class="header-nav" id="nav_items">
+                    <!-- 로그인 상태에 따라 이 부분 변경 -->
+                    <!-- 기본 상태(비로그인) -->
+                    <li class="right with-margin quiet" id="nav_login_item"><a href="login.html" class="muted" id="nav_login">Log In</a></li>
+
+                    <li class="right with-margin" id="nav_user_item" style="display:none;">
+                        <a href="#" class="muted" id="nav_user_info">Hello, USERNAME</a>
+                    </li>
+                    <li class="right with-margin" id="nav_logout_item" style="display:none;">
+                        <a href="#" class="muted" id="nav_logout">Log Out</a>
+                    </li>
+
+                    <li class="link"><a href="trends.html">Trending</a></li>
+                    <li class="link"><a href="search.html" id="nav_search">Search</a></li>
+                    <li class="link"><a href="preferences.html" id="nav_preferences">Preferences</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <div class="leader" style="background-image: url('images/network-visual.gif')" id="intro">
+        <div class="sub-navbar">
+            <div class="container">
+                <div class="row">
+                    <div class="span12">
+                        <ul class="nav">
+                            <li class="span2">
+                                <a href="#intro">Intro</a>
+                            </li>
+                            <li class="span2">
+                                <a href="#trending">Trending</a>
+                            </li>
+                            <li class="span2">
+                                <a href="#personalization">Personalization</a>
+                            </li>
+                            <li class="span2">
+                                <a href="#actionbox">Get Started</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="offset8 span4 community-title-container">
+                    <h1 class="pull-right">Discover What's Trending</h1>
+                </div>
+            </div>
+        </div>
+        <p class="bg-img-source">Visualization credit NewsMyRoom.</p>
+    </div>
+
+    <!-- Trending Content Section -->
+    <section id="trending">
+        <div class="container">
+            <div id="loading" class="loading">
+                <i class="fa fa-spinner fa-spin fa-3x"></i>
+                <p>Loading trending data...</p>
+            </div>
+            <div id="trending-content" style="display:none;">
+                <div class="row">
+                    <div class="col-6">
+                        <h3>TRENDING</h3>
+                    </div>
+                    <div class="col-6">
+                        <h3>TOP PHRASES</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 topRow" id="overall-trending">
+                        <!-- Overall Trending Topics will be inserted here -->
+                    </div>
+                    <div class="col-6 topRow" id="overall-phrases">
+                        <!-- Overall Trending Phrases will be inserted here -->
+                    </div>
+                </div>
+                <br>
+                <div class="row mainRow" id="station-trending">
+                    <!-- Station-specific Trending Topics will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 뉴스 섹션 -->
+    <section id="latest-news">
+        <div class="container">
+            <!-- 섹션별로 로딩 중 표시 -->
+            <div class="news-section" id="politics">
+                <h2>정치</h2>
+                <div class="news-list" data-section="politics">
+                    <div class="news-list-loading">Loading...</div>
+                </div>
+            </div>
+
+            <div class="news-section" id="economy">
+                <h2>경제</h2>
+                <div class="news-list" data-section="economy">
+                    <div class="news-list-loading">Loading...</div>
+                </div>
+            </div>
+
+            <div class="news-section" id="society">
+                <h2>사회</h2>
+                <div class="news-list" data-section="society">
+                    <div class="news-list-loading">Loading...</div>
+                </div>
+            </div>
+
+            <div class="news-section" id="automobile">
+                <h2>자동차</h2>
+                <div class="news-list" data-section="car">
+                    <div class="news-list-loading">Loading...</div>
+                </div>
+            </div>
+
+            <div class="news-section" id="it-science">
+                <h2>IT/과학</h2>
+                <div class="news-list" data-section="it">
+                    <div class="news-list-loading">Loading...</div>
+                </div>
+            </div>
+
+            <div class="news-section" id="world">
+                <h2>세계</h2>
+                <div class="news-list" data-section="world">
+                    <div class="news-list-loading">Loading...</div>
+                </div>
+            </div>
+
+            <div class="news-section" id="health">
+                <h2>건강</h2>
+                <div class="news-list" data-section="health">
+                    <div class="news-list-loading">Loading...</div>
+                </div>
+            </div>
+
+            <div class="news-section" id="travel-leisure">
+                <h2>여행/레저</h2>
+                <div class="news-list" data-section="travel">
+                    <div class="news-list-loading">Loading...</div>
+                </div>
+            </div>
+
+            <div class="news-section" id="food">
+                <h2>음식/맛집</h2>
+                <div class="news-list" data-section="food">
+                    <div class="news-list-loading">Loading...</div>
+                </div>
+            </div>
+
+            <div class="news-section" id="entertainment">
+                <h2>연예</h2>
+                <div class="news-list" data-section="entertainment">
+                    <div class="news-list-loading">Loading...</div>
+                </div>
+            </div>
+
+            <div class="news-section" id="fashion-beauty">
+                <h2>패션/뷰티</h2>
+                <div class="news-list" data-section="fashion">
+                    <div class="news-list-loading">Loading...</div>
+                </div>
+            </div>
+
+            <div class="news-section" id="performance-exhibition">
+                <h2>공연/전시</h2>
+                <div class="news-list" data-section="exhibition">
+                    <div class="news-list-loading">Loading...</div>
+                </div>
+            </div>
+
+            <div class="news-section" id="books">
+                <h2>책</h2>
+                <div class="news-list" data-section="book">
+                    <div class="news-list-loading">Loading...</div>
+                </div>
+            </div>
+
+            <div class="news-section" id="religion">
+                <h2>종교</h2>
+                <div class="news-list" data-section="religion">
+                    <div class="news-list-loading">Loading...</div>
+                </div>
+            </div>
+
+            <div class="news-section" id="breaking-news">
+                <h2>속보</h2>
+                <div class="news-list" data-section="breaking">
+                    <div class="news-list-loading">Loading...</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 NewsMyRoom. All Rights Reserved.</p>
+        </div>
+    </footer>
+</div>
+
+<!-- 공통 인증 스크립트 -->
+<script src="js/auth.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // 백엔드에서 /trending 엔드포인트로부터 데이터 로드
+        fetch('/api/trending') // 실제 백엔드 주소로 변경
+            .then(response => response.json())
+            .then(data => {
+                // data = {
+                //   politics: [...],
+                //   economy: [...],
+                //   society: [...],
+                //   car: [...],
+                //   it: [...],
+                //   world: [...],
+                //   health: [...],
+                //   travel: [...],
+                //   food: [...],
+                //   entertainment: [...],
+                //   fashion: [...],
+                //   exhibition: [...],
+                //   book: [...],
+                //   religion: [...],
+                //   breaking: [...]
+                // }
+
+                // 각 섹션에 해당하는 data-section 속성을 가진 div를 찾아 데이터 주입
+                const sections = document.querySelectorAll('.news-list[data-section]');
+                sections.forEach(sectionEl => {
+                    const sectionKey = sectionEl.getAttribute('data-section');
+                    const headlines = data[sectionKey] || [];
+
+                    // 기존 Loading... 요소 제거
+                    sectionEl.innerHTML = '';
+
+                    if (headlines.length === 0) {
+                        // 데이터가 없는 경우
+                        sectionEl.innerHTML = '<div class="news-list-loading">No news found</div>';
+                    } else {
+                        // 데이터가 있을 경우: 기사 아이템 생성
+                        headlines.forEach(news => {
+                            const item = document.createElement('div');
+                            item.className = 'news-item';
+
+                            const title = document.createElement('h4');
+                            title.textContent = news.title || 'No title';
+
+                            const summary = document.createElement('p');
+                            summary.textContent = news.summary || 'No summary';
+
+                            // 링크 클릭 가능하게 만들기
+                            if (news.link && news.link !== 'No link found') {
+                                const link = document.createElement('a');
+                                link.href = news.link;
+                                link.target = '_blank';
+                                link.appendChild(title);
+                                item.appendChild(link);
+                            } else {
+                                item.appendChild(title);
+                            }
+
+                            // 이미지가 있다면 추후 이미지 태그 추가 가능
+                            // if (news.image_url && news.image_url !== 'No image found') {
+                            //     const img = document.createElement('img');
+                            //     img.src = news.image_url;
+                            //     img.alt = news.title;
+                            //     img.style.width = '100%';
+                            //     img.style.height = 'auto';
+                            //     item.appendChild(img);
+                            // }
+
+                            item.appendChild(summary);
+                            sectionEl.appendChild(item);
+                        });
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching trending news:', error);
+            });
+    });
+</script>
+
+</body>
+</html>

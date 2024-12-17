@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-    <title>NewsMyRoom Search</title>
+    <title>뉴스마이룸 검색</title>
     <meta charset="utf-8">
-    <meta name="author" content="NewsMyRoom Team">
+    <meta name="author" content="뉴스마이룸 팀">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale" content="ko_KR" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="NewsMyRoom - Personalized News" />
-    <meta property="og:description" content="Discover personalized news and insights tailored to your interests." />
+    <meta property="og:title" content="뉴스마이룸 - 개인화된 뉴스" />
+    <meta property="og:description" content="당신의 관심사에 맞춘 개인화된 뉴스와 인사이트를 발견하세요." />
     <meta property="og:url" content="https://newsmyroom.example.com/search.html" />
-    <meta property="og:site_name" content="NewsMyRoom" />
+    <meta property="og:site_name" content="뉴스마이룸" />
     <meta property="og:image" content="images/screenshot.png" />
 
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
@@ -21,8 +21,6 @@
     <link rel="stylesheet" href="css/selectize.bootstrap3.css">
     <link rel="stylesheet" href="css/custom.css">
     <link rel="stylesheet" href="css/daterangepicker.css">
-    <link rel="stylesheet" href="css/font-awesome.min.css">
-    <link href="css/all.css" rel="stylesheet">
 
     <!-- JS -->
     <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
@@ -38,17 +36,17 @@
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <a class="navbar-brand" href="./" style="font-size: 1.5em;">
-        <i class="fa fa-newspaper"></i> NewsMyRoom
+        뉴스마이룸
     </a>
     <div style="position: absolute; right: 5px;">
         <button class='helpbutton btn-link' type="button" data-target="#helpModal" data-toggle="modal" style="float: right; margin-right: 5px;">
-            <i class="fa fa-info-circle fa-lg" title="Help"></i>
+            도움말
         </button>
         <button class='zoombutton btn-link' type="button" onclick="iframe_zoom(1)" style="float: right; margin-right: 5px; width: 30px">
-            <i class="fa fa-search-plus fa-lg" title="Increase font size"></i>
+            폰트 크기 늘리기
         </button>
         <button class='zoombutton btn-link' type="button" onclick="iframe_zoom(0)" style="float: right; margin-right: 5px; width: 30px">
-            <i class="fa fa-search-minus fa-lg" title="Reduce font size"></i>
+            폰트 크기 줄이기
         </button>
     </div>
 </nav>
@@ -57,164 +55,133 @@
     <div class="row">
         <div class="col-md-4 col-sm-12" id="side_panel">
             <p style="line-height: 100%; display: block; padding-top: 4px;">
-                Welcome to <strong>NewsMyRoom</strong>, your personalized news discovery platform. Use the search tools to find news articles, trends, and insights tailored to your interests.
+                <strong>뉴스마이룸</strong>에 오신 것을 환영합니다. 개인화된 뉴스 발견 플랫폼입니다. 검색 도구를 사용하여 관심사에 맞는 뉴스 기사, 트렌드 및 인사이트를 찾아보세요.
             </p>
             <hr />
 
-            <!-- INPUT TABS -->
+            <!-- 입력 탭 -->
             <div class="row tab col-12">
-                <button class="inputTabLinks col-4" onclick="manageInputTabs(event, 'tab_search')" id='searchTabInput' title="Search by keyword">SEARCH</button>
-                <button class="inputTabLinks col-4" onclick="manageInputTabs(event, 'tab_image')" id='imageTabInput' title="Search by image tags">IMAGE</button>
-                <button class="inputTabLinks col-4" onclick="manageInputTabs(event, 'tab_theme')" id='themeTabInput' title="Search by theme">THEME</button>
+                <button class="inputTabLinks col-6" onclick="manageInputTabs(event, 'tab_search')" id='searchTabInput' title="키워드로 검색">검색</button>
             </div>
 
-            <!-- SEARCH TAB -->
+            <!-- 검색 탭 -->
             <div id="tab_search" class="inputTab">
                 <div class="row col-12">
                     <div class="col-12">
-                        <label for="query">Search terms</label>
-                        <input class="col-12" type="text" id="query" value='' title='Enter keywords or phrases. Use quotes for exact phrases, parentheses for OR conditions, and -keyword for exclusions.'>
+                        <label for="query">검색어</label>
+                        <input class="col-12" type="text" id="query" value='' title='키워드 또는 구문을 입력하세요. 정확한 구문은 따옴표로, OR 조건은 괄호로, 제외는 -키워드로 사용하세요.'>
                     </div>
                 </div>
             </div>
 
-            <!-- IMAGE TAB -->
-            <div id="tab_image" class="inputTab">
-                <div class="row col-12">
-                    <div class="col-11">
-                        <label for="imagetag">Image tags</label>
-                        <select class="form-control pickerSelectClass dd_opt" type="text" id="imagetag"></select>
-                    </div>
-                    <div class="col-1">
-                        <label id="imagetag_bool_lab" for="imagetag_bool" title="Multiple tags are OR by default. Check to use AND logic.">and</label>
-                        <input id="imagetag_bool" name="imagetag_bool" type="checkbox" onchange="checkboxImageBool()" title="Use AND instead of OR for multiple tags"/>
-                    </div>
-                </div>
-            </div>
-
-            <!-- THEME TAB -->
-            <div id="tab_theme" class="inputTab">
-                <div class="row col-12">
-                    <div class="col-11">
-                        <label for="theme">Themes</label>
-                        <select class="form-control pickerSelectClass dd_opt" type="text" id="theme"></select>
-                    </div>
-                    <div class="col-1">
-                        <label id="theme_bool_lab" for="theme_bool" title="Multiple tags are OR by default. Check to use AND logic.">and</label>
-                        <input id="theme_bool" name="theme_bool" type="checkbox" value="yes" onchange="checkboxThemeBool()" title="Use AND logic for multiple themes"/>
-                    </div>
-                </div>
-            </div>
-
-            <!-- COUNTRIES & LANGUAGES -->
+            <!-- 국가 및 언어 -->
             <div class="row col-12">
                 <div class="col-6 selectContainer">
-                    <label for="sourcecountry">Source countries</label>
+                    <label for="sourcecountry">출처 국가</label>
                     <select class="form-control pickerSelectClass dd_opt" id="sourcecountry"></select>
                 </div>
                 <div class="col-6 selectContainer">
-                    <label for="sourcelang">Source languages</label>
+                    <label for="sourcelang">출처 언어</label>
                     <select class="form-control pickerSelectClass dd_opt" id="sourcelang"></select>
                 </div>
             </div>
 
-            <!-- DOMAINS -->
+            <!-- 도메인 -->
             <div class="row col-12">
                 <div class="col-9 selectContainer">
-                    <label for="domain">Domains</label>
+                    <label for="domain">도메인</label>
                     <select class="form-control pickerSelectClass dd_opt" id="domain"></select>
                 </div>
                 <div class="col-3">
-                    <label id="domainis_lab" for="domainis" title="Exclude subdomains?">
-                        <input id="domainis" name="domainis" type="checkbox" value="yes" onchange="checkboxDomain()"/> Exclude?
+                    <label id="domainis_lab" for="domainis" title="서브도메인 제외?">
+                        <input id="domainis" name="domainis" type="checkbox" value="yes" onchange="checkboxDomain()"/> 제외?
                     </label>
                 </div>
             </div>
 
-            <!-- DATE/TIME -->
+            <!-- 날짜/시간 -->
             <div class="row col-12">
                 <div class="col-8x">
-                    <label for="datetime">Date range</label>
+                    <label for="datetime">날짜 범위</label>
                     <input id="datetime" type="text" name="daterange" value="09/30/2017 - 12/20/2017" class="col-12x" disabled
-                           title="Select a date range for articles. If 'Recent' is specified, this is disabled."/>
+                           title="기사의 날짜 범위를 선택하세요. '최근'이 지정된 경우 비활성화됩니다."/>
                 </div>
                 <div class="col-2x">
-                    <label id="timespanlab" for="timespan">Recent</label>
+                    <label id="timespanlab" for="timespan">최근</label>
                     <input id="timespan" class="col-12x" name="timespan" type='text' value='1d'
-                           title='Specify recent period (e.g. "12h", "5d", "3w", "6m", "1y")'/>
+                           title='최근 기간을 지정하세요 (예: "12h", "5d", "3w", "6m", "1y")'/>
                 </div>
                 <div class="col-2">
-                    <label id="trans_lab" for="trans" title="Translate article titles">GT</label>
+                    <label id="trans_lab" for="trans" title="기사 제목 번역">번역</label>
                     <input id="trans" name="trans" type="checkbox" value="yes" onchange="checkboxTrans()"
-                           title="Enable Google Translate for article titles"/>
+                           title="기사 제목에 구글 번역을 활성화하세요"/>
                 </div>
             </div>
 
             <br />
             <hr />
 
-            <!-- OUTPUT TABS -->
+            <!-- 출력 탭 -->
             <div class="row tab col-12">
-                <button id="contentTabOutput" class="outputTabLinks col-3" onclick="manageOutputTabs(event, 'tab_content')" title="View content results">CONTENT</button>
-                <button id="timelineTabOutput" class="outputTabLinks col-3" onclick="manageOutputTabs(event, 'tab_timeline')" title="View timeline analytics">TIMELINE</button>
-                <button id="geoTabOutput" class="outputTabLinks col-3" onclick="manageOutputTabs(event, 'tab_geo')" title="View geographical analytics">GEO</button>
-                <button id="tvTabOutput" class="outputTabLinks col-3" onclick="manageOutputTabs(event, 'tab_tv')" title="View television news analytics">TV</button>
+                <button id="contentTabOutput" class="outputTabLinks col-4" onclick="manageOutputTabs(event, 'tab_content')" title="콘텐츠 결과 보기">콘텐츠</button>
+                <button id="timelineTabOutput" class="outputTabLinks col-4" onclick="manageOutputTabs(event, 'tab_timeline')" title="타임라인 분석 보기">타임라인</button>
+                <button id="geoTabOutput" class="outputTabLinks col-4" onclick="manageOutputTabs(event, 'tab_geo')" title="지리적 분석 보기">지리</button>
             </div>
 
-            <!-- CONTENT TAB -->
+            <!-- 콘텐츠 탭 -->
             <div id="tab_content" class="outputTab">
                 <div class="row col-12">
                     <div class="col-12">
-                        <label for="contentmode">Visualization options</label>
+                        <label for="contentmode">시각화 옵션</label>
                         <select class="form-control pickerSelectClass col-12" id="contentmode" value="ArtList"></select>
                     </div>
                 </div>
                 <div id="doc_results_options" class="row col-12">
                     <div id="maxrecordsdiv" class="col-4 selectContainer">
-                        <label for="maxrecords">Results: <span id="maxrecordslab"></span></label>
-                        <input type="range" min="1" max="250" value="75" class="slider col-12" id="maxrecords" title="Number of records to return">
+                        <label for="maxrecords">결과 수: <span id="maxrecordslab"></span></label>
+                        <input type="range" min="1" max="250" value="75" class="slider col-12" id="maxrecords" title="반환할 기록 수">
                     </div>
                     <div id="timelinesmoothdiv" class="col-3 selectContainer" style="display: none;">
-                        <label for="timelinesmooth">Smooth: <span id="timelinesmoothlab"></span></label>
-                        <input type="range" min="0" max="30" value="0" class="slider col-12" id="timelinesmooth" title="Timeline smoothing factor">
+                        <label for="timelinesmooth">부드러움: <span id="timelinesmoothlab"></span></label>
+                        <input type="range" min="0" max="30" value="0" class="slider col-12" id="timelinesmooth" title="타임라인 부드러움 정도">
                     </div>
                     <div class="col-3 selectContainer">
-                        <label for="format">Format</label>
+                        <label for="format">형식</label>
                         <select class="form-control pickerSelectClass dd_opt" id="format" class="col-12"></select>
                     </div>
                     <div id="sortdiv" class="col-5 selectContainer">
-                        <label for="sort">Sort</label>
+                        <label for="sort">정렬</label>
                         <select class="form-control pickerSelectClass dd_opt" id="sort" class="col-12"></select>
                     </div>
                 </div>
             </div>
 
-            <!-- TIMELINE TAB -->
+            <!-- 타임라인 탭 -->
             <div id="tab_timeline" class="outputTab">
                 <div class="row col-12">
                     <div class="col-12">
-                        <label for="timelinemode">Timeline options</label>
+                        <label for="timelinemode">타임라인 옵션</label>
                         <select class="form-control pickerSelectClass col-12" id="timelinemode" value="TimeLineVol"></select>
                     </div>
                 </div>
             </div>
 
-            <!-- GEO TAB -->
+            <!-- 지리 탭 -->
             <div id="tab_geo" class="outputTab">
                 <div class="row col-12">
                     <div class="col-12">
-                        <label for="geomode">Geo options</label>
+                        <label for="geomode">지리 옵션</label>
                         <select class="form-control pickerSelectClass col-12" id="geomode" value="PointData"></select>
                     </div>
                 </div>
                 <div class="row col-12">
 
                     <div class="col-4 selectContainer">
-                        <label for="geoformat">Format</label>
+                        <label for="geoformat">형식</label>
                         <select class="form-control pickerSelectClass dd_opt" id="geoformat" class="col-12"></select>
                     </div>
                     <div class="col-2 selectContainer">
-                        <label for="geotimespan" class="center-block2">Recent</label>
+                        <label for="geotimespan" class="center-block2">최근</label>
                         <input class="center-block2" type="text" id="geotimespan" value='1d'>
                     </div>
                     <div class="col-2 selectContainer">
@@ -222,13 +189,13 @@
                         <input class="center-block2" type="text" id="geogeores" value=''>
                     </div>
                     <div class="col-4 selectContainer">
-                        <label for="geonear">Near</label>
+                        <label for="geonear">근처</label>
                         <input class="col-12" type="text" id="geonear" value=''>
                     </div>
                 </div>
                 <div class="row col-12">
                     <div class="col-4 selectContainer">
-                        <label for="geolocationcc">Country</label>
+                        <label for="geolocationcc">국가</label>
                         <select class="form-control pickerSelectClass dd_opt" id="geolocationcc"></select>
                     </div>
                     <div class="col-4 selectContainer">
@@ -236,28 +203,8 @@
                         <select class="form-control pickerSelectClass dd_opt" id="geolocationadm1" class="col-12"></select>
                     </div>
                     <div class="col-4 selectContainer">
-                        <label for="geolocation">Location</label>
+                        <label for="geolocation">위치</label>
                         <input class="col-12" type="text" id="geolocation" value=''>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TV TAB -->
-            <div id="tab_tv" class="outputTab">
-                <div class="row col-12">
-                    <div class="col-12">
-                        <label for="tvmode">TV options</label>
-                        <select class="form-control pickerSelectClass col-12" id="tvmode" value="TimelineVol"></select>
-                    </div>
-                </div>
-                <div class="row col-12">
-                    <div class="col-9">
-                        <label for="network">Network</label>
-                        <select class="form-control pickerSelectClass dd_opt col-12" type="text" id="network"></select>
-                    </div>
-                    <div class="col-3">
-                        <label for="context">Context terms</label>
-                        <input class="col-12" type="text" id="context" value=''>
                     </div>
                 </div>
             </div>
@@ -266,16 +213,16 @@
             <div class="row col-12">
                 <a id="gdelt_api_call" class="col-11 inline-block" target='_blank'></a>
                 <button type="button" class="col-1 inline-block btn-link" onclick="copyApiCall()" style="border: none; padding: 1px; color:cyan;">
-                    <i id="copybutton" class="fa fa-clipboard fa-sm" title="Copy URL"></i>
+                    URL 복사
                 </button>
             </div>
-        </div>  <!-- END SIDE-PANEL -->
+        </div>  <!-- 사이드 패널 끝 -->
 
-        <!-- MAIN PANEL -->
+        <!-- 메인 패널 -->
         <div id="main_panel" class="col-md-8 col-sm-12 intrinsic-container intrinsic-container-16x9">
             <div id='main_panel_title_row' class="row col-12">
                 <h3 style='position: in-line; float:left; padding-top:10px; padding-left: 10px;'>
-                    <i class="fa fa-search fa-sm" style='position: in-line; float:left; padding: 10px; padding-left: 2px; padding-top: 15px;'></i>
+                    검색
                     <div id="iframe_title"></div>
                 </h3>
             </div>
@@ -286,27 +233,27 @@
     </div>
 </div>
 
-<!-- HELP MODAL -->
+<!-- 도움말 모달 -->
 <div class="modal fade" id="helpModal">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">How to use NewsMyRoom Search</h4>
+                <h4 class="modal-title">뉴스마이룸 검색 사용법</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <p>Use the search tools to discover news articles that matter to you. Refine by keywords, image tags, themes, languages, and more. Adjust date ranges, recent filters, and even enable translation of article headlines.</p>
+                <p>검색 도구를 사용하여 당신에게 중요한 뉴스 기사를 찾아보세요. 키워드, 이미지 태그, 테마, 언어 등을 기준으로 세분화할 수 있습니다. 날짜 범위, 최근 필터를 조정하고, 기사 제목의 번역을 활성화할 수도 있습니다.</p>
                 <ul>
-                    <li><b>Search terms</b>: Use quotes for exact phrases, AND/OR logic, and minus sign (-) to exclude terms.</li>
-                    <li><b>Image tags</b>: Filter by visual features in images.</li>
-                    <li><b>Themes</b>: Explore content by conceptual themes.</li>
-                    <li><b>Countries/Languages</b>: Narrow results by region or language.</li>
-                    <li><b>Date/Time</b>: Set a specific date range or recent timespan.</li>
-                    <li><b>Translation (GT)</b>: Enable translation to view titles in your preferred language.</li>
+                    <li><b>검색어</b>: 정확한 구문은 따옴표로, AND/OR 논리는 괄호로, 제외는 -키워드로 사용하세요.</li>
+                    <li><b>이미지 태그</b>: 이미지의 시각적 특성으로 필터링합니다.</li>
+                    <li><b>테마</b>: 개념적 테마별로 콘텐츠를 탐색합니다.</li>
+                    <li><b>국가/언어</b>: 지역이나 언어별로 결과를 좁힙니다.</li>
+                    <li><b>날짜/시간</b>: 특정 날짜 범위나 최근 기간을 설정하세요.</li>
+                    <li><b>번역 (GT)</b>: 선호하는 언어로 제목을 보기 위해 번역을 활성화하세요.</li>
                 </ul>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
             </div>
         </div>
     </div>
