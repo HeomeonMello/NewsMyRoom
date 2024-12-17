@@ -1,71 +1,119 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="ko">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trending - NewsMyRoom</title>
   <link rel="stylesheet" href="css/bootstrap.min.css">
-  <script type="text/javascript" src="js/popper.min.js"></script>
-  <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="css/stylesheet.css">
+  <link rel="stylesheet" href="css/font-awesome-4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="css/googlefonts-audiowide/googlefont-audiowide.css">
+  <link href="favicon.ico" type="image/x-icon" rel="icon" />
+  <script src="js/jquery-3.2.1.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
 
   <style>
-    .mainRow { max-height: 75vh; }
-    div.topRow { display: flex; flex-wrap: wrap; }
-    .station:nth-of-type(odd) { background: #f5f5f5; }
-    h3, h4 { text-align: center; margin: 15px 5px 5px 5px; }
-    h3 { color: cyan; background-color: #555; font-size: 18px; }
-    h4 { font-size: 14px; }
-    p { margin: 0px 0px 0px 5px; line-height: 90%; font-size: 14px; }
-  </style>
+    .news-container {
+      display: flex;
+      flex-direction: column;
+      margin: 20px;
+    }
 
+    .news-item {
+      border-bottom: 1px solid #ccc;
+      padding: 15px;
+    }
+
+    .news-item h3 {
+      font-size: 20px;
+      color: #333;
+    }
+
+    .news-item p {
+      color: #555;
+      font-size: 16px;
+    }
+
+    .news-header {
+      text-align: center;
+      margin: 20px 0;
+    }
+  </style>
 </head>
+
 <body>
-  <div id="main" class="container-fluid"></div>
+  <div class="wrapper-relative">
+    <header>
+      <div class="container center">
+        <h1 class="header-logo-public" style="font-family: 'Audiowide', serif; font-size: 26pt;">
+          <a href="index.html" title="NewsMyRoom" rel="home">NewsMyRoom</a>
+        </h1>
+      </div>
+    </header>
+
+    <div class="container">
+      <h1 class="news-header">실시간 인기 뉴스</h1>
+      <div id="main" class="row news-container"></div>
+
+      
+      <footer>
+        <p>&copy; 2024 <a href="index.html">NewsMyRoom</a>. All Rights Reserved.</p>
+      </footer>
+    </div>
+  </div>
 
   <script>
+    var api_url = window.parent.API_URL;
 
-var api_url = window.parent.API_URL;
-
-function array_to_ul(x, sep1='', sep2='') {
-  var item = '';
-  $.each(x, function(i, e) { item += '<p>' + sep1 + e + sep2 + '</p>'; });
-  return item ;
-}
-
-$.ajax({
-  url: api_url,
-  type: 'GET',
-  dataType: 'json',
-  error: function(err) { console.log(err); },
-  success: function(dat) {
-    d = dat;
-
-    var body = '<div class="row">\
-  <div class="col-6">\
-    <h3>TRENDING</h3>\
-  </div>\
-  <div class="col-6">\
-    <h3>TOP PHRASES</h3>\
-  </div>\
-</div>';
-    body += '<div class="row">';
-      body += '<div class="col-6 topRow"> ' + array_to_ul(d.OverallTrendingTopics, sep2='• ') + '</div>';
-      body += '<div class="col-6 topRow"> ' + array_to_ul(d.OverallTrendingPhrases, sep2='• ') + '</div>';
-    body += '</div><br>';
-
-    body += '<div class="row mainRow">';
-    for(var i=0; i<d.StationTrendingTopics.length; i++){
-      if(d.StationTrendingTopics[i].Station == 'FBC') continue;
-      body += '<div class="station col-2"> <h3>' + d.StationTrendingTopics[i].Station + '</h3>';
-      body += '<h4><em><b>trending</b></em></h4>' + array_to_ul(d.StationTrendingTopics[i].Topics, sep1='• ');
-      body += '<h4><em><b>top topics</b></em></h4>' + array_to_ul(d.StationTopTopics[i].Topics, sep1='• ') + '</div>';
+    // 배열을 리스트 형태로 변환하는 함수
+    function array_to_ul(x, sep1 = '', sep2 = '') {
+      var item = '';
+      $.each(x, function (i, e) { item += '<p>' + sep1 + e + sep2 + '</p>'; });
+      return item;
     }
-    body += '</div>';
 
-    $("#main").append(body);
-    console.log('end');
-  },
-});
+    // AJAX 요청
+    $.ajax({
+      url: api_url,
+      type: 'GET',
+      dataType: 'json',
+      error: function (err) { console.log(err); },
+      success: function (d) {
+        var body = '';
 
+        // TRENDING
+        body += '<div class="col-12 news-section"><div class="news-card">';
+        body += '<h4>🔥 TRENDING</h4>' + array_to_ul(d.OverallTrendingTopics);
+        body += '</div></div>';
+
+        // TOP PHRASES
+        body += '<div class="col-12 news-section"><div class="news-card">';
+        body += '<h4>🔑 TOP PHRASES</h4>' + array_to_ul(d.OverallTrendingPhrases);
+        body += '</div></div>';
+
+        // Station-specific Topics
+        d.StationTrendingTopics.forEach(function (station) {
+          body += '<div class="col-md-6 news-section"><div class="news-card">';
+          body += '<h4>' + station.Station + ' - 인기 주제</h4>';
+          body += array_to_ul(station.Topics, '• ');
+          body += '</div></div>';
+        });
+
+        // Station-specific Top Topics
+        d.StationTopTopics.forEach(function (station) {
+          body += '<div class="col-md-6 news-section"><div class="news-card">';
+          body += '<h4>' + station.Station + ' - 상위 키워드</h4>';
+          body += array_to_ul(station.Topics, '• ');
+          body += '</div></div>';
+        });
+
+        $("#main").append(body);
+      }
+    });
   </script>
 </body>
+
+
 </html>
