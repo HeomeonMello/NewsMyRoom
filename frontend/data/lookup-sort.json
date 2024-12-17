@@ -1,1 +1,19 @@
-[{},{"code":"DateDesc","name":"Date-descending"},{"code":"DateAsc","name":"Date-ascending"},{"code":"ToneDesc","name":"Tone-descending"},{"code":"ToneAsc","name":"Tone-ascending"}]
+[
+  {},
+  {
+    "code": "DateDesc",
+    "name": "날짜 내림차순"
+  },
+  {
+    "code": "DateAsc",
+    "name": "날짜 오름차순"
+  },
+  {
+    "code": "ToneDesc",
+    "name": "톤 내림차순"
+  },
+  {
+    "code": "ToneAsc",
+    "name": "톤 오름차순"
+  }
+]

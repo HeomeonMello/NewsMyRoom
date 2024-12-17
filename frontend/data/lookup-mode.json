@@ -1,1 +1,38 @@
-[{"code":"ArtList","name":"ART LIST - a simple list of news articles that matched the search"},{"code":"ArtGallery","name":"ART GALLERY - art layout of news articles that matched the search AND that include a social sharing image"},{"code":"ImageCollage","name":"IMAGE COLLAGE - matching images. Most relevant when used with the image-related search terms."},{"code":"ImageCollageInfo","name":"IMAGE COLLAGE INFO - as for IMAGE COLLAGE but includes links"},{"code":"ImageGallery","name":"IMAGE GALLERY - alternative layout to IMAGE COLLAGE INFO"},{"code":"ImageCollageShare","name":"IMAGE COLLAGE SHARE - lists social sharing images found in the matching articles, where present."},{"code":"WordCloudImageTags","name":"WORDCLOUD IMAGE TAGS - histogram of image tags assigned by Google\\'s Cloud Vision algorithms."},{"code":"WordCloudImageWebTags","name":"WORDCLOUD IMAGE WEB-TAGS - as above, but based on taxonomy tags assigned by Google CV based on captions identified via reverse Google Images searches."},{"code":"ToneChart","name":"TONE CHART - emotional histogram showing the tonal distribution of coverage of your query. Articles typically score within ±20 (max ±100)."}]
+[
+  {
+    "code": "ArtList",
+    "name": "ART LIST - 검색에 일치하는 뉴스 기사를 단순 목록 형태로 보여줌."
+  },
+  {
+    "code": "ArtGallery",
+    "name": "ART GALLERY - 검색에 일치하고 소셜 공유 이미지를 포함하는 뉴스 기사를 아트 형식으로 보여줌."
+  },
+  {
+    "code": "ImageCollage",
+    "name": "IMAGE COLLAGE - 검색에 일치하는 이미지들을 표시함. 이미지 관련 검색어와 함께 사용할 때 가장 적합함."
+  },
+  {
+    "code": "ImageCollageInfo",
+    "name": "IMAGE COLLAGE INFO - IMAGE COLLAGE와 같지만 링크를 포함함."
+  },
+  {
+    "code": "ImageGallery",
+    "name": "IMAGE GALLERY - IMAGE COLLAGE INFO의 대체 레이아웃."
+  },
+  {
+    "code": "ImageCollageShare",
+    "name": "IMAGE COLLAGE SHARE - 검색된 기사에서 찾은 소셜 공유 이미지를 나열함 (있는 경우에만)."
+  },
+  {
+    "code": "WordCloudImageTags",
+    "name": "WORDCLOUD IMAGE TAGS - 구글 클라우드 비전 알고리즘이 할당한 이미지 태그의 히스토그램."
+  },
+  {
+    "code": "WordCloudImageWebTags",
+    "name": "WORDCLOUD IMAGE WEB-TAGS - 위와 같지만, 구글 이미지 검색 캡션을 기반으로 구글 CV가 할당한 분류 태그를 기준으로 함."
+  },
+  {
+    "code": "ToneChart",
+    "name": "TONE CHART - 감정 히스토그램으로 검색어에 대한 보도의 톤 분포를 보여줌. 기사는 일반적으로 ±20 범위 내에서 점수를 가지며 (최대 ±100)."
+  }
+]
