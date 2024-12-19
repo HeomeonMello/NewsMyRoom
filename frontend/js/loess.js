@@ -1,5 +1,4 @@
-// Based on org.apache.commons.math.analysis.interpolation.LoessInterpolator
-// from http://commons.apache.org/math/
+
 science.stats.loess = function() {
   var bandwidth = .3,
       robustnessIters = 2,

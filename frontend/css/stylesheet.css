@@ -10,7 +10,52 @@
 .clearfix:after {
   clear: both;
 }
+/* 검색 컨테이너 스타일링 */
+.search-container {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
 
+.search-container input {
+  width: 100%;
+  height: 50px;
+  border-radius: 20px 0 0 20px;
+  border: 1px solid #ced4da;
+  padding: 0 15px;
+  outline: none;
+  font-size: 16px;
+}
+
+.search-container button {
+  width: 80px;
+  height: 50px;
+  border: none;
+  border-radius: 0 20px 20px 0;
+  background-color: #007be9;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.search-container button:hover {
+  background-color: #005bb5;
+}
+
+/* selectize.js 커스터마이징 (필요시 추가) */
+.selectize-control {
+  width: 100%;
+}
+
+.selectize-input {
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+.selectize-dropdown {
+  width: 100%;
+}
 /* JUMP TO "CONTENT CSS STARTS HERE" TO SEE SITE-LEVEL CSS */
 
 

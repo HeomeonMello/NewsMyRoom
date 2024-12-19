@@ -31,7 +31,6 @@
     <script type="text/javascript" src="js/daterangepicker.js"></script>
     <script type="text/javascript" src="js/d3.min.js"></script>
     <script type="text/javascript" src="init.js"></script>
-
 </head>
 <body>
 
@@ -70,6 +69,7 @@
                 <div class="row col-12">
                     <div class="col-12">
                         <label for="query">검색어</label>
+                        <!-- 기존 검색 입력 필드 유지 -->
                         <input class="col-12" type="text" id="query" value='' title='키워드 또는 구문을 입력하세요. 정확한 구문은 따옴표로, OR 조건은 괄호로, 제외는 -키워드로 사용하세요.'>
                     </div>
                 </div>
@@ -223,7 +223,6 @@
         <div id="main_panel" class="col-md-8 col-sm-12 intrinsic-container intrinsic-container-16x9">
             <div id='main_panel_title_row' class="row col-12">
                 <h3 style='position: in-line; float:left; padding-top:10px; padding-left: 10px;'>
-
                     <div id="iframe_title"></div>
                 </h3>
             </div>
@@ -260,8 +259,11 @@
     </div>
 </div>
 
+<!-- 추가된 스크립트 -->
+
 <script type="text/javascript" src="responsive.js"></script>
 <script type="text/javascript" src="main.js"></script>
 <script type="text/javascript" src="compare.js"></script>
+
 </body>
 </html>

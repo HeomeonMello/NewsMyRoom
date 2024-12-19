@@ -1,19 +1,19 @@
 [{
   "code": "TimelineVol",
-  "name": "VOLUME - % of global news coverage"
+  "name": "볼륨 - 전 세계 뉴스 보도 비율 (%)"
 }, {
   "code": "TimelineVolRaw",
-  "name": "VOLUME RAW - counts of matching articles"
+  "name": "원시 볼륨 - 일치하는 기사 수"
 }, {
   "code": "TimelineVolInfo",
-  "name": "VOLUME INFO - as VOLUME but includes interactive URL links to top sources"
+  "name": "볼륨 정보 - 볼륨과 동일하지만 상위 출처로의 인터랙티브 URL 링크 포함"
 }, {
   "code": "TimelineTone",
-  "name": "SENTIMENT - average \"tone\" of all matching coverage"
+  "name": "감성 - 모든 일치 보도의 평균 \"톤\""
 }, {
   "code": "TimelineLang",
-  "name": "LANGUAGE - volume breakdown by language (65 supported)"
+  "name": "언어 - 언어별 볼륨 분포"
 }, {
   "code": "TimelineSourceCountry",
-  "name": "SOURCE COUNTRY - which countries are focusing the most on the topic"
+  "name": "출처 국가 - 해당 주제에 가장 집중하는 국가"
 }]

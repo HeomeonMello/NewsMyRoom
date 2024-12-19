@@ -1,5 +1,5 @@
 // 인터페이스 조정
-document.getElementById("searchTabInput").click();  // 기본 쿼리 탭 선택
+document.getElementById("searchTabInput").click();  // 기본 검색 탭 선택
 document.getElementById("contentTabOutput").click(); // 기본 출력 탭 선택
 $("input").focus(function() { this.select() });      // 입력 시 전체 텍스트 선택
 
@@ -166,11 +166,6 @@ function load_menu_data (fn, ids, max_items, title) {
     dataType: 'json',
     error: function(err) { console.error(err); },
     success: function(options) {
-      if(fn == "data/LOOKUP-IMAGETAGS.json" || fn == "data/LOOKUP-GKGTHEMES.json"){
-        for(var i=0; i<options.length; i++) {
-          options[i].name = options[i].code + ' (' + options[i].n + ')';
-        }
-      }
       if(fn == "//api.gdeltproject.org/api/v2/tv/tv?mode=stationdetails&format=json"){
         options = options.station_details;
         options = options.filter(function (item) {
@@ -190,7 +185,7 @@ function load_menu_data (fn, ids, max_items, title) {
         selectize_element(ids[i], max_items[i], options, title[i]);
       }
       sources_loaded++;
-      if(sources_loaded == 11) {
+      if(sources_loaded == 8) { // 불필요한 메뉴 옵션 제거로 총 로드해야 할 메뉴 수 수정
         console.log('로드 완료');
       }
     },
@@ -198,8 +193,6 @@ function load_menu_data (fn, ids, max_items, title) {
 }
 
 // 선택 옵션 세트 로드 및 DOM에 추가
-load_menu_data("data/LOOKUP-IMAGETAGS.json", ['#imagetag'], [7], ['모든 이미지에 대해 GDELT가 인식한 10,000개 이상의 객체 및 활동 중 하나 이상의 주제 태그가 할당됩니다.']);
-load_menu_data("data/LOOKUP-GKGTHEMES.json", ['#theme'], [7], ['GDELT 글로벌 지식 그래프(GKG) 테마를 검색합니다. GKG 테마는 단일 헤딩 아래에 여러 다른 구문이나 이름이 있을 수 있어 복잡한 주제를 검색하는 강력한 방법을 제공합니다. 관련성이 높은 테마를 입력하여 일치하는 옵션을 찾으세요.']);
 load_menu_data("data/LOOKUP-LANGUAGES.json", ['#searchlang','#sourcelang'], [1,7], ['','검색할 콘텐츠의 언어. GDELT가 해석을 처리합니다.']);
 load_menu_data("data/LOOKUP-COUNTRIES.json", ['#sourcecountry','#geolocationcc'], [7,7], ['타겟 콘텐츠가 생성된 국가 또는 국가들','미디어 언급의 국가를 지정']);
 load_menu_data("data/LOOKUP-ADM1.json", ['#geolocationadm1'], [7], ['미디어 언급의 ADM1(최상위 하위 국가) 지리적 지역을 지정']);
@@ -207,11 +200,9 @@ load_menu_data("data/lookup-sort.json", ['#sort'], [1], ['기본적으로 결과
 load_menu_data("data/lookup-domain.json", ['#domain'], [7], ['타겟 콘텐츠의 웹 도메인 - 예: "cnn.com"']);
 load_menu_data("data/lookup-mode.json", ['#contentmode'], [1], ['소스 콘텐츠를 조사하기 위한 GDELT 모드']);
 load_menu_data("data/lookup-timeline.json", ['#timelinemode'], [1], ['시간에 따른 추세를 조사하기 위한 GDELT 모드']);
-load_menu_data("data/lookup-tv.json", ['#tvmode'], [1], ['텔레비전 추세를 조사하기 위한 GDELT 모드']);
 load_menu_data("data/lookup-format.json", ['#format'], [1], ['데이터 내보내기 형식']);
 load_menu_data("data/lookup-geo_mode.json", ['#geomode'], [1], ['콘텐츠 내 지리적 참조를 조사하기 위한 GDELT 모드. GDELT의 7일 GEO API를 사용합니다.']);
 load_menu_data("data/lookup-geo_format.json", ['#geoformat'], [1], ['데이터 내보내기 형식']);
-load_menu_data("//api.gdeltproject.org/api/v2/tv/tv?mode=stationdetails&format=json", ['#network'], [7], ['국내외 TV 네트워크.']);
 
 // 이벤트 핸들러
 var timeout = null; // 전역 타이머
@@ -248,29 +239,14 @@ document.getElementById('trans').checked = query.trans;
 
 function checkboxDomain() { update_query('domainis', !query.domainis); }
 function checkboxTrans() { update_query('trans', !query.trans); }
-function checkboxImageBool() { action_query(); }
-function checkboxThemeBool() { action_query(); }
 
 // 'CONTENT'가 아닌 탭 선택
 if(init_argset_keys){
   if(init_argset.api == 'geo') {
     document.getElementById("geoTabOutput").click();
   } else {
-    if(init_argset.api == 'tv'){
-      document.getElementById("tvTabOutput").click();
-    } else {
-      if(init_argset_keys.indexOf('timelinemode') > -1) {
-        document.getElementById("timelineTabOutput").click();
-      }
-    }
-  }
-  if(!query.query) {
-    if(query.imagetag) {
-      document.getElementById("imageTabInput").click();
-    } else {
-      if(query.theme) {
-        document.getElementById("themeTabInput").click();
-      }
+    if(init_argset_keys.indexOf('timelinemode') > -1) {
+      document.getElementById("timelineTabOutput").click();
     }
   }
 }

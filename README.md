@@ -13,7 +13,7 @@ newsmyroom/
 │       │   └── trendingRoutes.js
 │       ├── controllers/
 │       │   ├── userController.js
-│       │   └── trendingController.js
+│       │   └── searchRoutes.js
 │       ├── models/
 │       │   └── User.js
 │       └── middleware/
